@@ -11,7 +11,8 @@ const initialState = {
 export const updateProfile = createAsyncThunk(
     'updateProfile',
     async(body)=> {
-        const link = "http://localhost:4000/api/v1/me/update"; 
+        
+        const link = "/me/update"; 
         const result = await fetch1(link, "put", body); 
         return result
     }
@@ -34,15 +35,16 @@ const profileReducer = createSlice({
                 state.isUpdated= true
                 toast.success(message);
             }else{
-                state.isUpdated= false
+                
                 toast.error(message);
 
             }
         })
-        // builder.addCase(updateProfile.rejected, (state, action) => {
-        //     state.loading = false
-        //     toast.error(action.error.message);
-        // })
+        builder.addCase(updateProfile.rejected, (state, action) => {
+            state.loading = false
+            state.isUpdated= false
+            toast.error(action.error.message);
+        })
     }
 
 });

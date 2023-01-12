@@ -182,18 +182,20 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
             width:150,
             crop: "scale",
         });
+        
         newUserData.avatar = {
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
         };
         
     }
-    console.log(newUserData);
-    // const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
-    //     new:true,
-    //     runValidators:true,
-    //     useFindAndModify:false,
-    // });
+    // console.log(newUserData);
+    const userUp = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new:true,
+        runValidators:true,
+        useFindAndModify:false,
+    });
+    console.log(userUp);
 
     res.status(200).json({success:true, message:"Profile has been updated"});
     
