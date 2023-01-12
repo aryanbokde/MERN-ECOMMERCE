@@ -4,30 +4,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../View/Loading';
 import { updateProfile } from "../../Reducers/ProfileReducer";
 import { loadUser } from '../../Reducers/userReducer';
+
 // import { refreshPage } from '../../Helpers/helper';
 import MetaData from '../View/MetaData';
 
 const UpdateProfile = () => {
 
   const dispatch = useDispatch();
-  const { loading, user } = useSelector((state) => state.user);
-  const { isUpdated } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.user);
+  const { isUpdated, loading } = useSelector((state) => state.profile);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState(user.avatar.url);
 
-  // const setUser = useCallback(() => {
-  //   if (isUpdated) {
-  //     dispatch(loadUser());
-  //   }
+  const setUser = useCallback(() => {
+    if (isUpdated) {
+      dispatch(loadUser());
+    }
     
-  // },[isUpdated]);
+  },[isUpdated]);
   
-  // useEffect(() => {
-  //   setUser();
-  //   // eslint-disable-next-line 
-  // }, [isUpdated]);
+  useEffect(() => {
+    setUser();
+    // eslint-disable-next-line 
+  }, [isUpdated]);
 
 
   const registerDataChange = (e) => {    
@@ -41,12 +42,14 @@ const UpdateProfile = () => {
         reader.readAsDataURL(e.target.files[0]);    
   };
 
-  const updateUserProfile = (e) => {
+  const updateUserProfile = async(e) => {
     e.preventDefault();
     const userData = {
       name, email, avatar
     }
+    console.log(userData)
     dispatch(updateProfile(userData));
+    // dispatch(loadUser());
     
     // refreshPage('/account');
   }

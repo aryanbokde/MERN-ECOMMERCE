@@ -9,6 +9,7 @@ import Loader from '../View/Loading';
 const Profile = () => {
 
     const { user, loading } = useSelector((state) => state.user);
+    
    
   return (
     <div style={{ padding: "50px 0px" }}>

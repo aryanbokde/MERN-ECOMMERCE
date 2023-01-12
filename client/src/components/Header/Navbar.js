@@ -9,7 +9,7 @@ const Navbar = ({isAuthenticated, user}) => {
 
   const searchSubmitHandle = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {      
+    if (keyword.trim()) {
       history(`/products/${keyword}`);
     }else{
       history(`/products/`);

@@ -5,9 +5,6 @@ import { fetch1, fetch2 } from '../Helpers/helper';
 const initialState = {
     loading:false,
     user: [],
-    success: "",
-    error: "",
-    token: "",
     isAuthenticated:false,
 }
 
@@ -16,7 +13,7 @@ const initialState = {
 export const loginUser = createAsyncThunk(
     'loginUser',
     async(body)=> {
-        let link = "/login";
+        let link = "/api/v1/login";
         const result = await fetch1(link, "post", body);
         return result
     }
@@ -26,7 +23,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     'registerUser',
     async(body)=> { 
-        let link = "/register";       
+        let link = "/api/v1/register";       
         const result = await fetch1(link, "post", body);
         return result
     }
@@ -36,7 +33,7 @@ export const registerUser = createAsyncThunk(
 export const loadUser = createAsyncThunk(
     'loadUser',
     async()=> {        
-        let link = "/me";       
+        let link = "/api/v1/me";       
         const result = await fetch2(link, "get"); 
         return result
     }
@@ -46,7 +43,7 @@ export const loadUser = createAsyncThunk(
 export const userLogout = createAsyncThunk(
     'userLogout',
     async()=> {        
-        let link = "/logout";       
+        let link = "/api/v1/logout";       
         const result = await fetch2(link, "get"); 
         return result
     }
@@ -75,7 +72,6 @@ const userReducer = createSlice({
         })
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loading = false
-            state.error = action.error.message
             toast.error(action.error.message);
         })
 
@@ -97,7 +93,6 @@ const userReducer = createSlice({
         })
         builder.addCase(registerUser.rejected, (state, action) => {
             state.loading = false
-            state.error = action.error.message
             toast.error(action.error.message);
         })
 
@@ -116,7 +111,7 @@ const userReducer = createSlice({
         builder.addCase(loadUser.rejected, (state, action) => {
             state.loading = false
             state.isAuthenticated = false
-            state.error = action.error.message
+            toast.error(action.error.message);
         })
 
         //==================User Logout====================== //
@@ -137,7 +132,7 @@ const userReducer = createSlice({
             state.loading = false
             state.user = null
             state.isAuthenticated = false
-            console.log(action.error.message)
+            toast.error(action.error.message);
         })
     }
 
