@@ -1,0 +1,29 @@
+.pagination{
+    justify-content: center;
+}
+.pagination li{
+    margin-right: 5px;
+}
+.pagination li a{
+    color: #333;
+    background: #f1f1f1;
+    padding: 5px 10px;
+    line-height: 21px;
+    font-size: 14px;
+}
+.pagination li.active a{
+    background-color: red;
+    color: #fff;
+}
+.list-group-item li:hover{
+    cursor: pointer;
+}
+.filter {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.filter p.MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root {
+    font-weight: 900;
+    font-size: 16px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,26 @@
+.css-1l7c0cy{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+.corousel{
+    text-align: center;
+}
+.review-counter{
+    text-align: center;
+}
+.review-counter .card{
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-radius: 5px;
+}
+.review-body > div{
+    justify-content: center !important;
+}
+.Block-1, .Block-2{
+    margin-bottom: 20px;
+}
+.Block-2{
+    display: flex;
+}

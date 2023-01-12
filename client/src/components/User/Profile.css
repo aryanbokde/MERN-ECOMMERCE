@@ -1,0 +1,38 @@
+.profile-detail{
+    text-align: center;
+}
+.userDetail .btn, .profile-detail .btn{
+    background-color: #d40000;
+    border-radius: 0;
+    border:none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.profile-detail .btn:hover{
+    background-color: #333;
+}
+.userDetail .btn{
+    background-color: #333;
+}
+.userDetail .btn:hover{
+    background-color: #d40000;
+}
+.userDetail .btn{
+    width: 100%;
+}
+.profile-detail h6{
+    text-align: left;
+}
+.avatar{
+    width:100%;
+    max-width: 200px;
+    border-radius:100px;
+}
+/* .user-detail{
+    display: block;
+    align-items: center;
+    justify-content: center;
+} */
+.user-detail .userDetail {
+    width: 100%;
+}
