@@ -34,10 +34,8 @@ const profileReducer = createSlice({
                 state.loading = false
                 state.isUpdated= true
                 toast.success(message);
-            }else{
-                
+            }else{                
                 toast.error(message);
-
             }
         })
         builder.addCase(updateProfile.rejected, (state, action) => {
