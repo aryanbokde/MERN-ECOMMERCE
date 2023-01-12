@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
+import { fetch1, fetch2 } from '../Helpers/helper';
 
 const initialState = {
     loading:false,
@@ -9,28 +10,6 @@ const initialState = {
     token: "",
     isAuthenticated:false,
 }
-
-
-const fetch1 = async(link, type, body) => {    //2
-    const res = await fetch(link, {
-        method:type,
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body:JSON.stringify(body)
-    })
-    return await res.json();
-};
-
-const fetch2 = async(url, type) => {   //1
-    const res = await fetch(url, {
-        method:type,
-        headers:{
-            "Content-Type" : "application/json"
-        },       
-    })
-    return await res.json();
-};
 
 
 //User Trying to Login Check user and login.

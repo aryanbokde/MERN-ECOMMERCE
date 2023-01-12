@@ -43,13 +43,11 @@ const LoginSignUp = () => {
   };
 
   const registerSubmit = (e) => {
-
     e.preventDefault();
     const userReg = {
       name, email, password, avatar
     }
     dispatch(registerUser(userReg));
-
   };
 
   const registerDataChange = (e) => {

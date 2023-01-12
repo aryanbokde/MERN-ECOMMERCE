@@ -8,21 +8,8 @@ import Loader from '../View/Loading';
 
 const Profile = () => {
 
-    const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-    // const history = useNavigate();
-
-    // const checkAuthUser = useCallback(() => {
-    //     if (isAuthenticated === false) {
-    //         history('/login');
-    //     }
-    // }, [isAuthenticated]);
-
-    // useEffect(() => {
-    //     checkAuthUser();
-    //     // eslint-disable-next-line 
-    // }, [checkAuthUser]);
-    
-    
+    const { user, loading } = useSelector((state) => state.user);
+   
   return (
     <div style={{ padding: "50px 0px" }}>
     {
@@ -39,7 +26,7 @@ const Profile = () => {
                 </div>
                 <div className="container">           
                     <div className="row">
-                        <div className='col-md-6'>
+                        <div className='col-md-5'>
                             <div className='profile-detail'>
                                 <h6>Profile</h6>
                                 <img src={user.avatar.url ? user.avatar.url : '/Profile.png'} alt={user.name} className="avatar"/>
@@ -47,7 +34,8 @@ const Profile = () => {
                             </div>
                             
                         </div>
-                        <div className='col-md-6'>
+                        <div className='col-md-2'></div>
+                        <div className='col-md-5'>
                         <div className='userDetail'>
                                 <h6>User Name</h6>
                                 <p>{user.name}</p>

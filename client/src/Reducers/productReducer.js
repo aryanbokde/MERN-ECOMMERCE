@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
+import { fetch2 } from '../Helpers/helper';
 
 const initialState = {
     loading:false,
@@ -11,15 +12,6 @@ const initialState = {
     filteredProductCount:null,
 }
 
-const fetch2 = async(url, type) => {   //1
-    const res = await fetch(url, {
-        method:type,
-        headers:{
-            "Content-Type" : "application/json"
-        },
-    })
-    return await res.json();
-};
 
 //Fetch All Products 
 export const fetchAllProduct = createAsyncThunk(

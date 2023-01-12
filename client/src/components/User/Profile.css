@@ -27,12 +27,9 @@
     width:100%;
     max-width: 200px;
     border-radius:100px;
+    margin-bottom: 30px;
 }
-/* .user-detail{
-    display: block;
-    align-items: center;
-    justify-content: center;
-} */
+
 .user-detail .userDetail {
     width: 100%;
 }

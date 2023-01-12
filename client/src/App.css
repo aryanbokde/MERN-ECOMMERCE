@@ -154,5 +154,6 @@ button.page-link.disabled:focus {
   color: #fff;
 }
 .btn:hover{
+  color: #fff;
   background-color: #333;  
 }
