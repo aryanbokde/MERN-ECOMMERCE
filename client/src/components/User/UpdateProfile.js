@@ -15,20 +15,20 @@ const UpdateProfile = () => {
   const { isUpdated, loading } = useSelector((state) => state.profile);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(user.avatar.url);
   const [avatarPreview, setAvatarPreview] = useState(user.avatar.url);
 
-  const setUser = useCallback(() => {
-    if (isUpdated) {
-      dispatch(loadUser());
-    }
+  // const setUser = useCallback(() => {
+  //   if (isUpdated) {
+  //     dispatch(loadUser());
+  //   }
     
-  },[isUpdated]);
+  // },[isUpdated]);
   
-  useEffect(() => {
-    setUser();
-    // eslint-disable-next-line 
-  }, [isUpdated]);
+  // useEffect(() => {
+  //   setUser();
+  //   // eslint-disable-next-line 
+  // }, [isUpdated]);
 
 
   const registerDataChange = (e) => {    
