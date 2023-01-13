@@ -17,14 +17,29 @@ export const updateProfile = createAsyncThunk(
         return result
     }
 );
-
+//Trying update user Profile.
+export const resetProfile = createAsyncThunk(
+    'resetProfile',
+    async()=> {      
+       
+    }
+);
+export const updatePassword = createAsyncThunk(
+    'updatePassword',
+    async(body)=> {
+        
+        const link = "/password/update"; 
+        const result = await fetch1(link, "put", body); 
+        return result
+    }
+);
 const profileReducer = createSlice({
     name:"UserProfile",
     initialState,
     reducers:{},
     extraReducers: (builder) => {
 
-        //==================User Logout====================== //
+        //==================Profile Update====================== //
         builder.addCase(updateProfile.pending, (state) => {
             state.loading = true
             state.isUpdated= false
@@ -34,15 +49,49 @@ const profileReducer = createSlice({
                 state.loading = false
                 state.isUpdated= true
                 toast.success(message);
-            }else{                
+            }else{             
+                state.loading = false
+                state.isUpdated= false
                 toast.error(message);
             }
         })
         builder.addCase(updateProfile.rejected, (state, action) => {
             state.loading = false
             state.isUpdated= false
-            toast.error(action.error.message);
+            console.log(action.error.message);
         })
+        //==================Reset Profile====================== //
+        builder.addCase(resetProfile.pending, (state) => {
+            state.loading = true
+            state.isUpdated= false
+        })
+        builder.addCase(resetProfile.fulfilled, (state) => {            
+            state.loading = false
+            state.isUpdated= false
+        })
+        //==================Update Password====================== //
+        builder.addCase(updatePassword.pending, (state) => {
+            state.loading = true
+            state.isUpdated= false
+        })
+        builder.addCase(updatePassword.fulfilled, (state, {payload:{success, message}}) => {            
+            if (success) {
+                state.loading = false
+                state.isUpdated= true
+                toast.success("password has been updated");
+            }else{             
+                state.loading = false
+                state.isUpdated= false
+                toast.error(message);
+            }
+        })
+        builder.addCase(updatePassword.rejected, (state, action) => {
+            state.loading = false
+            state.isUpdated= false
+            console.log(action.error.message);
+        })
+        
+
     }
 
 });

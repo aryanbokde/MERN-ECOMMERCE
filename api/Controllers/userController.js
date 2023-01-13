@@ -152,7 +152,7 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     if (!isPasswordMatched) {
         return next(new ErrorHander("Old password is incorrent", 400));
     }
-
+ 
     if (req.body.newPassword !== req.body.comfirmPassword) {
         return next(new ErrorHander("Password does not matched", 400));
     }
@@ -195,7 +195,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         runValidators:true,
         useFindAndModify:false,
     });
-    console.log(userUp);
+    // console.log(userUp);
 
     res.status(200).json({success:true, message:"Profile has been updated"});
     

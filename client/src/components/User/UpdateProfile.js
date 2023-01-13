@@ -1,35 +1,23 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UpdateProfile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../View/Loading';
-import { updateProfile } from "../../Reducers/ProfileReducer";
+import { updateProfile, resetProfile } from "../../Reducers/ProfileReducer";
 import { loadUser } from '../../Reducers/userReducer';
-
 // import { refreshPage } from '../../Helpers/helper';
 import MetaData from '../View/MetaData';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = () => {
 
   const dispatch = useDispatch();
+  const history = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { isUpdated, loading } = useSelector((state) => state.profile);
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState(user.avatar.url);
-  const [avatarPreview, setAvatarPreview] = useState(user.avatar.url);
-
-  // const setUser = useCallback(() => {
-  //   if (isUpdated) {
-  //     dispatch(loadUser());
-  //   }
-    
-  // },[isUpdated]);
-  
-  // useEffect(() => {
-  //   setUser();
-  //   // eslint-disable-next-line 
-  // }, [isUpdated]);
-
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [avatarPreview, setAvatarPreview] = useState('/Profile.png');
 
   const registerDataChange = (e) => {    
         const reader = new FileReader();
@@ -46,15 +34,24 @@ const UpdateProfile = () => {
     e.preventDefault();
     const userData = {
       name, email, avatar
-    }
-    console.log(userData)
+    }    
     dispatch(updateProfile(userData));
-    // dispatch(loadUser());
-    
-    // refreshPage('/account');
   }
 
 
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setAvatarPreview(user.avatar.url);
+    }
+    if (isUpdated) {
+      dispatch(loadUser());    
+      history('/account');
+      dispatch(resetProfile());
+    }
+  },[user, isUpdated, dispatch, history])
 
   return (
     <div style={{ padding: "50px 0px", backgroundColor: "#eee" }}>

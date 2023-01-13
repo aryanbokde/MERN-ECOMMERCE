@@ -12,7 +12,7 @@ const Profile = () => {
     
    
   return (
-    <div style={{ padding: "50px 0px" }}>
+    <div style={{ padding: "50px 0px", backgroundColor: "#eee" }}>
     {
         loading ? <Loader/> : (
             <>
@@ -51,7 +51,7 @@ const Profile = () => {
                             </div>
                             <div className='userDetail'>
                                 <p><Link to="/me/update" className='btn btn-primary'>My Orders</Link></p>
-                                <p><Link to="/me/update" className='btn btn-primary'>Change Password</Link></p>
+                                <p><Link to="/password/update" className='btn btn-primary'>Change Password</Link></p>
                             </div>
                         </div>
                     </div>
