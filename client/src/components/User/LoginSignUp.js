@@ -30,7 +30,7 @@ const LoginSignUp = () => {
     if (isAuthenticated) {
       history('/account');
     }
-  },[isAuthenticated]);
+  },[isAuthenticated, history]);
 
   useEffect(() => {
     authenticated();

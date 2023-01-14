@@ -33,6 +33,29 @@ export const updatePassword = createAsyncThunk(
         return result
     }
 );
+
+export const ForgotPassword = createAsyncThunk(
+    'forgotPassword',
+    async(body)=> {
+        
+        const link = "/password/forgot"; 
+        const result = await fetch1(link, "post", body); 
+        return result
+    }
+);
+
+export const resetPassword = createAsyncThunk(
+    'resetPassword',
+    async(body)=> { 
+        
+        const { token } = body;
+       
+        const link = `/password/reset/${token}`;  
+             
+        const result = await fetch1(link, "put", body); 
+        return result
+    }
+);
 const profileReducer = createSlice({
     name:"UserProfile",
     initialState,
@@ -69,6 +92,10 @@ const profileReducer = createSlice({
             state.loading = false
             state.isUpdated= false
         })
+        builder.addCase(resetProfile.rejected, (state) => {            
+            state.loading = false
+            state.isUpdated= false
+        })
         //==================Update Password====================== //
         builder.addCase(updatePassword.pending, (state) => {
             state.loading = true
@@ -86,6 +113,48 @@ const profileReducer = createSlice({
             }
         })
         builder.addCase(updatePassword.rejected, (state, action) => {
+            state.loading = false
+            state.isUpdated= false
+            console.log(action.error.message);
+        })
+        //==================Forgot Password====================== //
+        builder.addCase(ForgotPassword.pending, (state) => {
+            state.loading = true
+            state.isUpdated= false
+        })
+        builder.addCase(ForgotPassword.fulfilled, (state, {payload:{success, message}}) => {            
+            if (success) {
+                state.loading = false
+                state.isUpdated= true
+                toast.success(message);
+            }else{            
+                state.isUpdated= false 
+                state.loading = false
+                toast.error(message);
+            }
+        })
+        builder.addCase(ForgotPassword.rejected, (state, action) => {
+            state.loading = false
+            state.isUpdated= false
+            console.log(action.error.message);
+        })
+        //==================Reset Password====================== //
+        builder.addCase(resetPassword.pending, (state) => {
+            state.loading = true
+            state.isUpdated= false
+        })
+        builder.addCase(resetPassword.fulfilled, (state, {payload:{success, message}}) => {            
+            if (success) {
+                state.loading = false
+                state.isUpdated= true
+                toast.success("Password has been changed");
+            }else{             
+                state.loading = false
+                state.isUpdated= false
+                toast.error(message);
+            }
+        })
+        builder.addCase(resetPassword.rejected, (state, action) => {
             state.loading = false
             state.isUpdated= false
             console.log(action.error.message);

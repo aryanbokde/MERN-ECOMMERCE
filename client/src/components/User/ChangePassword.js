@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import MetaData from '../View/MetaData';
 import Loader from '../View/Loading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,12 +23,16 @@ const ChangePassword = () => {
       dispatch(updatePassword(userData));
     }
 
-    React.useEffect(() => {
+    const callBack =  useCallback(() => {
       if(isUpdated){
         history('/account');
         dispatch(resetProfile());
       }
     },[isUpdated, history, dispatch]);
+
+    useEffect(() => {
+      callBack();
+    },[callBack]);
 
   return (
     <div style={{ padding: "50px 0px", backgroundColor: "#eee" }}>
@@ -46,13 +50,13 @@ const ChangePassword = () => {
                 <div className="col-md-6">           
                     <form className="" encType="multipart/form-data" onSubmit={UpdatePassword}>
                           <div className="form-group mb-3">
-                            <input className="form-control" type="text" placeholder="Old Password" required name="name" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
+                            <input className="form-control" type="password" placeholder="Old Password" required name="name" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} />
                           </div>
                           <div className="form-group mb-3">
-                            <input className="form-control" type="text" placeholder="New Password" required name="name" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                            <input className="form-control" type="password" placeholder="New Password" required name="name" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                           </div>
                           <div className="form-group mb-3">
-                            <input className="form-control" type="text" placeholder="Confirm Password" required name="name" value={cnfPassword} onChange={(e) => setCnfPassword(e.target.value)} />
+                            <input className="form-control" type="password" placeholder="Confirm Password" required name="name" value={cnfPassword} onChange={(e) => setCnfPassword(e.target.value)} />
                           </div>
                           <input type="submit" value="Update" className="btn" />
                     </form>

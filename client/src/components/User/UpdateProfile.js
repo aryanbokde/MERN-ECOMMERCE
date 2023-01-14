@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './UpdateProfile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../View/Loading';
@@ -38,9 +38,7 @@ const UpdateProfile = () => {
     dispatch(updateProfile(userData));
   }
 
-
-
-  useEffect(() => {
+  const authenticated = useCallback(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
@@ -51,7 +49,13 @@ const UpdateProfile = () => {
       history('/account');
       dispatch(resetProfile());
     }
-  },[user, isUpdated, dispatch, history])
+  },[user, isUpdated, dispatch, history]);
+
+  useEffect(() => {
+      authenticated();
+      // eslint-disable-next-line 
+  },[authenticated]);
+
 
   return (
     <div style={{ padding: "50px 0px", backgroundColor: "#eee" }}>
