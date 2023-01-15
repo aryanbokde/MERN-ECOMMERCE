@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../../Reducers/userReducer';
 
 
 const UserOptions = ({user}) => {
     const dispatch = useDispatch();
     const history = useNavigate();
+    const { isAuthenticated } = useSelector((state) => state.user);
     const options = [        
         { url: "orders", name: "Orders"},
         { url: "account", name: "Account"},
@@ -22,12 +23,22 @@ const UserOptions = ({user}) => {
         e.preventDefault();
         if (value === "logout") {
             dispatch(userLogout());
-            history("/login");
+            // history("/login");
         }else{
             history(value);
-        }
-        
+        }        
     }
+
+    const checkUserLogout = useCallback(() => {
+        if(!isAuthenticated){
+            history('/login');
+        }
+    },[isAuthenticated, history]);
+
+    useEffect(() => {
+        checkUserLogout();
+    },[checkUserLogout]);
+
   return (
     <>
         <li className="nav-item dropdown">
@@ -37,7 +48,7 @@ const UserOptions = ({user}) => {
             <ul className="dropdown-menu">
            
             {options.map((value, index) => (
-                <li key={index} data={index} onClick={(e) =>handleClick(e, value.url)}><button className="dropdown-item">{value.name}</button></li>
+                <li key={index} data={index}><button onClick={(e) =>handleClick(e, value.url)} className="dropdown-item">{value.name}</button></li>
             ))}
               
             </ul>

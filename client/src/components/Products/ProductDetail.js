@@ -1,24 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
 import { productDetail } from '../../Reducers/productReducer';
+import { addToCart } from '../../Reducers/cartReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import './ProductDetail.css';
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from './ReviewCard';
 import MetaData from "../View/MetaData";
 import Loader from '../View/Loading';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const ProductDetail = () => {
     const location = useLocation();
     const productId = location.pathname.split("/")[2];
     const { products, loading } = useSelector((state) => state.product);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(productDetail(productId));
-        // eslint-disable-next-line
-    },[productId]);
     const options = {
         edit: false,
         color: "rgba(20,20,20,0.1)",
@@ -27,6 +24,39 @@ const ProductDetail = () => {
         value: products.ratings,
         isHalf: true,
     };
+    
+    
+    // Cart related code
+    const [quantity, setQuantity] = useState(1);
+    const increaseQuantity = () => {        
+        if(products.stock <= quantity) {
+            return
+        }
+        const qty = quantity + 1;
+        setQuantity(qty);
+    }
+    const decreaseQuantity = () => {
+        if(1 >= quantity) return;
+        const qty = quantity - 1;
+        setQuantity(qty);
+    }
+    const addToCartHandle = async(e) => {  
+        e.preventDefault();
+        dispatch(addToCart({products, quantity}));
+    }
+    
+
+
+    const singleProductDetail = useCallback(() => {
+        if (productId) {
+            dispatch(productDetail(productId));
+        }
+    },[productId, dispatch]);
+
+    useEffect(() => {
+        singleProductDetail();
+        // eslint-disable-next-line
+    },[singleProductDetail]);
 
   return (
     <div style={{ padding: "100px 0px", backgroundColor: "#eee" }}>
@@ -41,7 +71,6 @@ const ProductDetail = () => {
                             products.images.map((item, i) => (
                                 <img src={item.url} alt={`${i} Slide`} key={item.url+i} className="CarouselImage" />
                             ))
-
                         }
                     </Carousel>
                 </div>
@@ -61,9 +90,10 @@ const ProductDetail = () => {
                         <h3>{`₹${products.price}`}</h3>
                         <div className="detailsBlock-3-1">
                         <div className="detailsBlock-3-1-1">
-                            <button >-</button>
-                            <input readOnly type="number" value="1" />
-                            <button>+</button>
+                            <button onClick={decreaseQuantity}>-</button>
+                            <input readOnly type="number" value={quantity} />
+                            <button onClick={increaseQuantity}>+</button>
+                            <button onClick={addToCartHandle} className="btn ">Add to Cart</button>
                         </div>
                         </div>
                         <p>

@@ -42,9 +42,8 @@ export const loadUser = createAsyncThunk(
 //Trying to User logout
 export const userLogout = createAsyncThunk(
     'userLogout',
-    async()=> {        
-        let link = "/logout";       
-        const result = await fetch2(link, "get"); 
+    async()=> {                     
+        const result = await fetch2("/logout", "get"); 
         return result
     }
 );
@@ -125,6 +124,7 @@ const userReducer = createSlice({
                 state.isAuthenticated = false
                 toast.success(message);
             }else{
+                state.loading = false
                 toast.error(message);
             }
         })
