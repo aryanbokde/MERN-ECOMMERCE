@@ -52,7 +52,7 @@ const Cart = () => {
                                                         <a href="#" className="text-muted"><i className="fa fa-trash"></i> Remove item</a>
                                                     </div>
                                                 </td>
-
+ 
                                                 <td>
                                                 ₹{item.price}
                                                     <s className="small text-muted">₹230,00</s>
