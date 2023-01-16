@@ -72,10 +72,44 @@ const cartReducer = createSlice({
                 });
             }
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
+        increaseCart(state, action){
+           
+           const itemIndex = state.cartItems.findIndex(
+                (item) => item.product === action.payload.product
+            );
+            
+            if ( itemIndex >= 0 ) {
+                if (action.payload.stock <= state.cartItems[itemIndex].quantity) {
+                    toast.error(`${state.cartItems[itemIndex].name} quantity greater then stock`, {
+                        position:"bottom-center",
+                    });  
+                    return;
+                }
+                state.cartItems[itemIndex].quantity += 1;  
+                toast.info(`increased ${state.cartItems[itemIndex].name} cart quantity`, {
+                    position:"bottom-center",
+                });         
+            }else{
+                
+                const cartItem = {
+                    product:action.payload.product,
+                    name:action.payload.name,
+                    price:action.payload.price,
+                    image:action.payload.images[0].url,
+                    stock:action.payload.stock,
+                    quantity:1
+                }
+                state.cartItems.push(cartItem);
+                toast.success(`${action.payload.products.name} added to cart`, {
+                    position:"bottom-center",
+                });    
+            }
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         }
 
 
     }
 });
-export const { addToCart, removeFromCart, decreaseCart } = cartReducer.actions;
+export const { addToCart, removeFromCart, decreaseCart, increaseCart } = cartReducer.actions;
 export default cartReducer.reducer;

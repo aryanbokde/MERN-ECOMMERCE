@@ -2,7 +2,7 @@ import React from 'react';
 import './Cart.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {removeFromCart, decreaseCart} from '../../Reducers/cartReducer';
+import {removeFromCart, decreaseCart, increaseCart} from '../../Reducers/cartReducer';
 
 
 const Cart = () => {
@@ -16,7 +16,10 @@ const Cart = () => {
     const handleDecreased = (product) => {
         dispatch(decreaseCart(product));
     }
-
+    const handleIncreased = (product) => {
+        dispatch(increaseCart(product))
+    }
+    
   return (
     <div style={{ padding: "100px 0px", backgroundColor: "#eee" }}>
         <div className="container">
@@ -66,7 +69,7 @@ const Cart = () => {
                                                     <div className='d-flex d-center'>
                                                     <button className='count' onClick={()=> handleDecreased(item)}>-</button>
                                                     <div className='count cart-num'>{item.quantity}</div>
-                                                    <button className='count'>+</button>
+                                                    <button className='count'onClick={()=> handleIncreased(item)}>+</button>
                                                     </div>
                                                 </td>
                                                 <td>
