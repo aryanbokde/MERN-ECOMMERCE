@@ -1,11 +1,21 @@
 import React from 'react';
 import './Cart.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-const Cart = () => {
+import {removeFromCart, decreaseCart} from '../../Reducers/cartReducer';
 
+
+const Cart = () => {
+    const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
-    console.log(cart);
+    
+    const handleRemoveFromCart = (cartItem) => {
+        dispatch(removeFromCart(cartItem));
+    }
+
+    const handleDecreased = (product) => {
+        dispatch(decreaseCart(product));
+    }
 
   return (
     <div style={{ padding: "100px 0px", backgroundColor: "#eee" }}>
@@ -24,6 +34,7 @@ const Cart = () => {
                                 <div className="ibox-content" key={item.product} data={item.product}>
                                     <div className="table-responsive">
                                         <table className="table shoping-cart-table">
+                                           
                                             <tbody>
                                             <tr>
                                                 <td width="90">
@@ -37,36 +48,35 @@ const Cart = () => {
                                                         {item.name}
                                                     </Link>
                                                     </h3>
-                                                    <p className="small">
-                                                        It is a long established fact that a reader will be distracted by the readable
-                                                        content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                                    </p>
                                                     <dl className="small m-b-none">
                                                         <dt>Description lists</dt>
                                                         <dd>A description list is perfect for defining terms.</dd>
                                                     </dl>
 
                                                     <div className="m-t-sm">
-                                                        <a href="#" className="text-muted"><i className="fa fa-gift"></i> Add gift package</a>
-                                                        |
-                                                        <a href="#" className="text-muted"><i className="fa fa-trash"></i> Remove item</a>
+                                                        <button onClick={() => handleRemoveFromCart(item) } className="text-muted"><i className="fa fa-trash"></i> Remove item</button>
                                                     </div>
                                                 </td>
- 
+
                                                 <td>
                                                 ₹{item.price}
                                                     <s className="small text-muted">₹230,00</s>
                                                 </td>
-                                                <td width="65">
-                                                    <input type="text" className="form-control" value={item.quantity}/>
+                                                <td>
+                                                    <div className='d-flex d-center'>
+                                                    <button className='count' onClick={()=> handleDecreased(item)}>-</button>
+                                                    <div className='count cart-num'>{item.quantity}</div>
+                                                    <button className='count'>+</button>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <h4>
-                                                    ₹{item.price}
+                                                    ₹{item.price * item.quantity}
                                                     </h4>
                                                 </td>
                                             </tr>
                                             </tbody>
+                                           
                                         </table>
                                     </div>
                                 </div>
@@ -76,7 +86,6 @@ const Cart = () => {
                             <div className="ibox-content">
                                 <button className={`btn btn-primary pull-right ${cart.cartItems.length < 1 ? 'disabled' : ''}`}><i className="fa fa fa-shopping-cart"></i> Checkout</button>
                                 <button className="btn btn-white"><i className="fa fa-arrow-left"></i> Continue shopping</button>
-
                             </div>
                         </div>
 
@@ -91,7 +100,7 @@ const Cart = () => {
                                     Total
                                 </span>
                                 <h2 className="font-bold">
-                                    $390,00
+                                    ₹{cart.cartTotalAmount}
                                 </h2>
 
                                 <hr/>
@@ -100,8 +109,8 @@ const Cart = () => {
                                 </span>
                                 <div className="m-t-sm">
                                     <div className="btn-group">
-                                    <a href="#" className="btn btn-primary btn-sm"><i className="fa fa-shopping-cart"></i> Checkout</a>
-                                    <a href="#" className="btn btn-white btn-sm"> Cancel</a>
+                                    <button className={`btn btn-primary btn-sm ${cart.cartItems.length < 1 ? 'disabled' : ''}`}><i className="fa fa-shopping-cart"></i> Checkout</button>
+                                    <button className="btn btn-white"><i className="fa fa-arrow-left"></i> Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -127,24 +136,24 @@ const Cart = () => {
                                 </p>
                                 <hr/>
                                 <div>
-                                    <a href="#" className="product-name"> Product 1</a>
+                                    <Link to="/" className="product-name"> Product 1</Link>
                                     <div className="small m-t-xs">
                                         Many desktop publishing packages and web page editors now.
                                     </div>
                                     <div className="m-t text-righ">
 
-                                        <a href="#" className="btn btn-xs btn-outline btn-primary">Info <i className="fa fa-long-arrow-right"></i> </a>
+                                        <Link to="/" className="btn btn-xs btn-outline btn-primary">Info <i className="fa fa-long-arrow-right"></i> </Link>
                                     </div>
                                 </div>
                                 <hr/>
                                 <div>
-                                    <a href="#" className="product-name"> Product 2</a>
+                                    <Link to="/" className="product-name"> Product 2</Link>
                                     <div className="small m-t-xs">
                                         Many desktop publishing packages and web page editors now.
                                     </div>
                                     <div className="m-t text-righ">
 
-                                        <a href="#" className="btn btn-xs btn-outline btn-primary">Info <i className="fa fa-long-arrow-right"></i> </a>
+                                        <Link to="/" className="btn btn-xs btn-outline btn-primary">Info <i className="fa fa-long-arrow-right"></i> </Link>
                                     </div>
                                 </div>
                             </div>

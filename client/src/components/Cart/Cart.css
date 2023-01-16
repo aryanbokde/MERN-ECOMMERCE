@@ -88,3 +88,17 @@ table.shoping-cart-table tr td:last-child {
   background: #ffffff;
   padding: 10px 15px;
 }
+
+
+.d-center{
+  justify-content: center;
+  align-items: center;
+}
+.count{
+  padding: 2px 10px;
+  border: none;
+  background-color: #dcdcdc;
+}
+.cart-num{
+  background-color: #fff !important;
+}

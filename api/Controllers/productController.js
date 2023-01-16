@@ -12,7 +12,6 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 
-
 //Get all Product by Admin ----Admin
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
@@ -33,7 +32,6 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   
   res.status(200).json({ success: true, products, productCount, resultPerPage, filteredProductCount });
 });
-
 
 
 //Update Product by Admin ----Admin
