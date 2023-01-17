@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Cart.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {removeFromCart, decreaseCart, increaseCart} from '../../Reducers/cartReducer';
+import {removeFromCart, decreaseCart, increaseCart, clearCart, getTotals} from '../../Reducers/cartReducer';
 
 
 const Cart = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     
-    const handleRemoveFromCart = (cartItem) => {
-        dispatch(removeFromCart(cartItem));
-    }
+    useEffect(() => {
+        dispatch(getTotals());
+    },[cart, dispatch]);
 
-    const handleDecreased = (product) => {
-        dispatch(decreaseCart(product));
+    const handleRemoveFromCart = (item) => {
+        dispatch(removeFromCart(item));
     }
-    const handleIncreased = (product) => {
-        dispatch(increaseCart(product))
+    const handleDecreased = (item) => {
+        dispatch(decreaseCart(item));
+    }
+    const handleIncreased = (item) => {
+        dispatch(increaseCart(item));
+    }
+    const clearCardHandle = () => {
+        dispatch(clearCart());
     }
     
   return (
@@ -89,8 +95,9 @@ const Cart = () => {
                             <div className="ibox-content">
                                 <button className={`btn btn-primary pull-right ${cart.cartItems.length < 1 ? 'disabled' : ''}`}><i className="fa fa fa-shopping-cart"></i> Checkout</button>
                                 <button className="btn btn-white"><i className="fa fa-arrow-left"></i> Continue shopping</button>
+                                <button onClick={()=>clearCardHandle()} className="btn btn-white"><i className="fa fa-arrow-left"></i> Clear Cart</button>
                             </div>
-                        </div>
+                        </div> 
 
                     </div>
                     <div className="col-md-3">

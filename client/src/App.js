@@ -14,6 +14,7 @@ import ProductDetail from './components/Products/ProductDetail';
 import LoginSignup from './components/User/LoginSignUp';
 import { store } from './store';
 import { loadUser } from './Reducers/userReducer';
+import { getTotals } from './Reducers/cartReducer';
 import { useSelector } from 'react-redux';
 import Profile from './components/User/Profile';
 import ProtectedRoutes from './components/Route/ProtectedRoutes';
@@ -25,10 +26,14 @@ import Cart from './components/Cart/Cart';
 
 function App() {
   
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  
+  const { isAuthenticated, user } = useSelector((state) => state.user);  
+  
   useEffect(() => {
     store.dispatch(loadUser());
+    store.dispatch(getTotals());
   }, []);
+  
   
   return (
       <>
