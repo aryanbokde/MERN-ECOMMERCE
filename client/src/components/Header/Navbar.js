@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../images/shop.png";
 import UserOptions from './UserOptions';
-
+import { getTotals } from '../../Reducers/cartReducer';
 
 const Navbar = ({isAuthenticated, user}) => {
   const history = useNavigate();
+  const dispatch = useDispatch();
   const [keyword, setKeyword] = useState("");
 
-  const {cartTotalQuantity} = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
 
   const searchSubmitHandle = (e) => {
     e.preventDefault();
@@ -17,10 +18,13 @@ const Navbar = ({isAuthenticated, user}) => {
       history(`/products/${keyword}`);
     }else{
       history(`/products/`);
-    }
-
-    
+    } 
   }
+
+  useEffect(() => {
+    dispatch(getTotals());
+},[cart, dispatch]);
+
   return (
     <>
     <div>
@@ -42,7 +46,7 @@ const Navbar = ({isAuthenticated, user}) => {
                   <Link className="nav-link" to="/login">Login/Register</Link>
                   </li>  
                   <li className="nav-item">
-                  <Link className="nav-link" to="/cart">Cart <span>({cartTotalQuantity})</span></Link>
+                    <Link className="nav-link" to="/cart"><i className="fa fa fa-shopping-cart"></i> <span>({cart.cartItems.length})</span></Link>
                   </li>  
                   {
                     isAuthenticated && <UserOptions user={user}/>

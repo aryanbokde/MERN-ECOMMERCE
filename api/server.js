@@ -11,7 +11,7 @@ process.on("uncoughtException", (err) => {
 });
 
 //Config 
-dotenv.config({path:"config/config.env"})
+dotenv.config({path:"config/config.env"});
 
 //Connecting to database 
 connectDatabase();

@@ -13,7 +13,7 @@ const initialState = {
 export const loginUser = createAsyncThunk(
     'loginUser',
     async(body)=> {
-        let link = "/login";
+        let link = "/api/v1/login";
         const result = await fetch1(link, "post", body);
         return result
     }
@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
 export const registerUser = createAsyncThunk(
     'registerUser',
     async(body)=> { 
-        let link = "/register";       
+        let link = "/api/v1/register";       
         const result = await fetch1(link, "post", body);
         return result
     }
@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk(
 export const loadUser = createAsyncThunk(
     'loadUser',
     async()=> {        
-        let link = "/me";       
+        let link = "/api/v1/me";       
         const result = await fetch2(link, "get"); 
         return result
     }
@@ -43,7 +43,7 @@ export const loadUser = createAsyncThunk(
 export const userLogout = createAsyncThunk(
     'userLogout',
     async()=> {                     
-        const result = await fetch2("/logout", "get"); 
+        const result = await fetch2("/api/v1/logout", "get"); 
         return result
     }
 );

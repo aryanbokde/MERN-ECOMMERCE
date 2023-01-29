@@ -12,7 +12,7 @@ export const updateProfile = createAsyncThunk(
     'updateProfile',
     async(body)=> {
         
-        const link = "/me/update"; 
+        const link = "/api/v1/me/update"; 
         const result = await fetch1(link, "put", body); 
         return result
     }
@@ -28,7 +28,7 @@ export const updatePassword = createAsyncThunk(
     'updatePassword',
     async(body)=> {
         
-        const link = "/password/update"; 
+        const link = "/api/v1/password/update"; 
         const result = await fetch1(link, "put", body); 
         return result
     }
@@ -38,7 +38,7 @@ export const ForgotPassword = createAsyncThunk(
     'forgotPassword',
     async(body)=> {
         
-        const link = "/password/forgot"; 
+        const link = "/api/v1/password/forgot"; 
         const result = await fetch1(link, "post", body); 
         return result
     }
@@ -50,7 +50,7 @@ export const resetPassword = createAsyncThunk(
         
         const { token } = body;
        
-        const link = `/password/reset/${token}`;  
+        const link = `/api/v1/password/reset/${token}`;  
              
         const result = await fetch1(link, "put", body); 
         return result

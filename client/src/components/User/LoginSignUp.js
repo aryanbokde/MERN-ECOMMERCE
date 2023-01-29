@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState, useEffect, useCallback } from "react";
 import "./LoginSignUp.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from '../../Reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const LoginSignUp = () => {
 
   const history = useNavigate();
-
+  const location = useLocation();
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
@@ -26,11 +26,13 @@ const LoginSignUp = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.user);
 
+  const redirect = location.search ? location.search.split('=')[1] : 'account';
+  
   const authenticated = useCallback(() => {
     if (isAuthenticated) {
-      history('/account');
+      history(`/${redirect}`);
     }
-  },[isAuthenticated, history]);
+  },[isAuthenticated, history, redirect]);
 
   useEffect(() => {
     authenticated();

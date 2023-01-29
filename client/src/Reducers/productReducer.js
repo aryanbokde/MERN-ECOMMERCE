@@ -31,9 +31,9 @@ export const fetchAllProduct = createAsyncThunk(
         const category = Obj.category;
         const ratings = Obj.ratings;
 
-        let link = `/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+        let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
         if (category) {
-            link = `/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+            link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
         }
         const result = await fetch2(link, "get");
         return result
@@ -45,7 +45,7 @@ export const fetchAllProduct = createAsyncThunk(
 export const productDetail = createAsyncThunk(
     'productdetail',
     async(productId)=> {       
-        const result = await fetch2(`/product/${productId}`, "get");
+        const result = await fetch2(`/api/v1/product/${productId}`, "get");
         return result
     }
 );

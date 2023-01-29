@@ -9,7 +9,6 @@ import ReactStars from "react-rating-stars-component";
 import ReviewCard from './ReviewCard';
 import MetaData from "../View/MetaData";
 import Loader from '../View/Loading';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const ProductDetail = () => {
     const location = useLocation();
@@ -40,6 +39,7 @@ const ProductDetail = () => {
         const qty = quantity - 1;
         setQuantity(qty);
     }
+
     const addToCartHandle = async(e) => {  
         e.preventDefault();
         dispatch(addToCart({products, quantity}));
