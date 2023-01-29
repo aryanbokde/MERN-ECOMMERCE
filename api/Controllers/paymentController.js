@@ -69,6 +69,6 @@ exports.processToPayment = catchAsyncErrors(async (req, res, next) =>{
         cancel_url:`${process.env.FRONTEND_URL}/cart`,
    
     });
-    console.log(session);
+    // console.log(session);
     res.send({ url:session.url });
 });

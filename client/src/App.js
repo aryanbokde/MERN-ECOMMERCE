@@ -22,26 +22,30 @@ import ChangePassword from "./components/User/ChangePassword";
 import ForgetPassword from "./components/User/ForgetPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
-import Checkout from "./components/Chekout/Checkout";
-
-
+import NotFound from "./components/View/NotFound";
+import Shipping from './components/Chekout/Shipping';
+import ConfirmOrder from './components/Chekout/ConfirmOrder';
+import Payment from './components/Chekout/Payment';
 
 
 function App() {
-
   const { isAuthenticated, user } = useSelector((state) => state.user);
+
   async function getStripeApiKey() {
     store.dispatch(loadUser());
     store.dispatch(getTotals());
   }
+
   useEffect(() => {
     getStripeApiKey();    
     // eslint-disable-next-line
   }, []);
-   
+  
+  
   return (
     <>
-      <ToastContainer />
+
+      <ToastContainer />      
       <Router>
         <Fragment>
           
@@ -60,15 +64,17 @@ function App() {
                 <Route exact path="/account" element={<Profile />} />
                 <Route exact path="/me/update" element={<UpdateProfile />} />
                 <Route exact path="/password/update" element={<ChangePassword />}/>
-                <Route exact path="/shipping" element={<Checkout />} />
-                {/* <Route exact path="/shipping" element={<Shipping />} />
+                {/* <Route exact path="/shipping" element={<Checkout />} /> */}
+                <Route exact path="/shipping" element={<Shipping />} />
                 <Route exact path="/order/confirm" element={<ConfirmOrder />} />
-                <Route exact path="/process/payment" element={<Payment/>} /> */}
+                <Route exact path="/process/payment" element={<Payment/>} />
               </Route>
+              <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer/>
         </Fragment>
       </Router>
+
     </>
   );
 }

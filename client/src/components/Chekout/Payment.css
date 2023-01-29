@@ -1,0 +1,25 @@
+.bg-p{
+    background-color: #eee;
+    padding: 100px 0;
+}
+.needs-validation {
+    background-color: #fff;
+    max-width: 500px;
+    padding-bottom: 30px;
+}
+.needs-validation .btn{
+    display: block;
+    width: 100%;
+    font-size: 18px;
+}
+
+.paymentForm{
+    width: 100%;
+    border:1pa solid red;
+    padding: 15px;
+}
+input.InputElement.is-empty.Input.Input--empty {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid red;
+}

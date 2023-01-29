@@ -1,0 +1,14 @@
+.bg-p{
+    
+    padding: 100px 0;
+}
+.needs-validation {
+    background-color: #fff;
+    max-width: 500px;
+    padding-bottom: 30px;
+}
+.needs-validation .btn{
+    display: block;
+    width: 100%;
+    font-size: 18px;
+}

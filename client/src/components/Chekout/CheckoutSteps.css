@@ -1,0 +1,11 @@
+.Mui-line{
+    display:none;
+}
+.Mui-root{
+    height:1px;
+    background-color:red;
+}
+.Mui-active,
+.Mui-completed{
+    color:red;
+}
