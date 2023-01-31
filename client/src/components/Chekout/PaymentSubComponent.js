@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import './Payment.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {toast} from 'react-toastify';
 import {
   CardElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-
+import { createNewOrder } from '../../Reducers/orderReducer';
 // import {
 //   CartNumberElement,
 //   CartCvcElement,
@@ -26,10 +26,21 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = useRef();
-  const { shippingInfo } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const { orders } = useSelector((state) => state.order);
   const paymentData = {
     amount:Math.round(orderInfo.totalPrice)
+  }
+  
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.subTotal,
+    taxPrice: orderInfo.tax,
+    shippingPrice: orderInfo.shippingCharges,
+    totalPrice: orderInfo.totalPrice
   }
 
   const handleSubmit = async (event) => {
@@ -72,8 +83,13 @@ const CheckoutForm = () => {
         toast.error(result.error.message);        
       }else{
         if (result.paymentIntent.status === "succeeded") {
-          // window.location.reload();
-          console.log(result.paymentIntent.status);
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          }
+          dispatch(createNewOrder(order));
+          // window.location.href = '';
+          // console.log(result.paymentIntent.status);
         } else {
           toast.error("There's some issue while processing payment");
         }
@@ -85,12 +101,12 @@ const CheckoutForm = () => {
     }
     
   };
-
+  console.log(orders);
   return (
     <form onSubmit={handleSubmit} className='paymentForm'>
       <>
-      <CardElement className='paymentForm'/>
-      <button type="submit" disabled={!stripe || !elements} ref={payBtn}>
+      <CardElement className='paymentForm1'/>
+      <button type="submit" disabled={!stripe || !elements} ref={payBtn} className="btn btn-primary">
         {`Pay - ${orderInfo && orderInfo.totalPrice}`}
       </button>
       </>

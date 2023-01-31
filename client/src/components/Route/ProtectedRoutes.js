@@ -1,13 +1,13 @@
-
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoutes = () => {
-    const { loading, isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
   return (
-        !loading && isAuthenticated ? <Outlet/> : <Navigate to='/login'/>
+      isAuthenticated ? <Outlet/> : <Navigate to='/login'/>
   )
 }
 
 export default ProtectedRoutes
+

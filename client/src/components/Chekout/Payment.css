@@ -15,11 +15,23 @@
 
 .paymentForm{
     width: 100%;
-    border:1pa solid red;
-    padding: 15px;
+    border: 1px solid #d1d1d1;
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    margin-top: 50px;
+    padding: 50px 15px;
+    box-shadow: 2px 2px 10px #c5c5c5;
+}
+.paymentForm .btn{
+    margin-top: 15px;
 }
 input.InputElement.is-empty.Input.Input--empty {
     width: 100%;
     padding: 15px;
     border: 1px solid red;
+}
+
+.__PrivateStripeElement-input {
+    border:1px solid red;
 }

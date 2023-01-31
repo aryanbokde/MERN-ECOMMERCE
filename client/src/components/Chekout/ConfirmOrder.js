@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
 import './ConfirmOrder.css';
 import MetaData from '../View/MetaData';
@@ -30,6 +31,24 @@ const ConfirmOrder = () => {
     history('/process/payment')
   }
 
+  const CheckShippingInfo = useCallback(() => {
+    if (!shippingInfo.phoneNo) {
+      toast.error(`Please complete shipping info before checkout`, {
+        position: "bottom-center",
+      });
+      history('/shipping');
+    } else if (cartItems.length === 0) {
+      toast.error(`Your cart is empty`, {
+        position: "bottom-center",
+      });
+      history('/cart');
+    }
+  },[shippingInfo, cartItems, history]);
+
+  useEffect(() => {
+    CheckShippingInfo();
+    // eslint-disable-next-line
+  },[CheckShippingInfo]);
   return (
     <div className="bg-p">
         <MetaData title="Order Confirm"/>

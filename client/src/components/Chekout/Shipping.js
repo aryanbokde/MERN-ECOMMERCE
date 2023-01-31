@@ -1,6 +1,6 @@
 import './Shipping.css';
 import { toast } from "react-toastify";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Country, State } from 'country-state-city';
@@ -12,7 +12,7 @@ import {saveShippingInfo} from '../../Reducers/cartReducer';
 const Shipping = () => {
     const dispatch = useDispatch();
     const history = useNavigate();
-    const { shippingInfo } = useSelector((state) => state.cart);
+    const { cartItems, shippingInfo } = useSelector((state) => state.cart);
     const [address, setAddress] = useState(shippingInfo.address);
     const [city, setCity] = useState(shippingInfo.city);
     const [state, setState] = useState(shippingInfo.state);
@@ -35,6 +35,19 @@ const Shipping = () => {
 
     }
 
+    const checkCartItem = useCallback(() => {
+      if (cartItems.length === 0) {
+        toast.error(`Your cart is empty`, {
+          position: "bottom-center",
+        });
+        history('/cart');
+      }
+    },[cartItems, history]);
+
+    useEffect(() => {
+      checkCartItem();
+      // eslint-disable-next-line
+    },[checkCartItem]);
   return (
     <div className="bg-p">
         <MetaData title="Shipping Details"/>

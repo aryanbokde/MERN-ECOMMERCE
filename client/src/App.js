@@ -22,10 +22,11 @@ import ChangePassword from "./components/User/ChangePassword";
 import ForgetPassword from "./components/User/ForgetPassword";
 import ResetPassword from "./components/User/ResetPassword";
 import Cart from "./components/Cart/Cart";
-import NotFound from "./components/View/NotFound";
+// import NotFound from "./components/View/NotFound";
 import Shipping from './components/Chekout/Shipping';
 import ConfirmOrder from './components/Chekout/ConfirmOrder';
 import Payment from './components/Chekout/Payment';
+import OrderSuccess from "./components/Chekout/OrderSuccess";
 
 
 function App() {
@@ -58,18 +59,22 @@ function App() {
               <Route exact path="/login" element={<LoginSignup />} />
               <Route exact path="/password/forgot" element={<ForgetPassword />}/>
               <Route exact path="/password/reset/:token" element={<ResetPassword />}/>
-              <Route exact path="/cart" element={<Cart />} />
+              <Route exact path="/cart" element={<Cart />} />              
+              <Route exact path="/order-success" element={<OrderSuccess />} />              
+              {isAuthenticated && 
+                <Route element={<ProtectedRoutes />}>
+                  <Route exact path="/account" element={<Profile />} />
+                  <Route exact path="/me/update" element={<UpdateProfile />} />
+                  <Route exact path="/password/update" element={<ChangePassword />}/>
+                  {/* <Route exact path="/shipping" element={<Checkout />} /> */}
+                  <Route exact path="/shipping" element={<Shipping />} />
+                  <Route exact path="/order/confirm" element={<ConfirmOrder />} />
+                  <Route exact path="/process/payment" element={<Payment/>} />
+                </Route>              
+              }
+              
 
-              <Route element={<ProtectedRoutes />}>
-                <Route exact path="/account" element={<Profile />} />
-                <Route exact path="/me/update" element={<UpdateProfile />} />
-                <Route exact path="/password/update" element={<ChangePassword />}/>
-                {/* <Route exact path="/shipping" element={<Checkout />} /> */}
-                <Route exact path="/shipping" element={<Shipping />} />
-                <Route exact path="/order/confirm" element={<ConfirmOrder />} />
-                <Route exact path="/process/payment" element={<Payment/>} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
+              {/* <Route path="*" element={<NotFound />} /> */}
             </Routes>
             <Footer/>
         </Fragment>

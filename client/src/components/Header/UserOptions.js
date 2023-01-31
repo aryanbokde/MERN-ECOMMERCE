@@ -7,6 +7,7 @@ import { userLogout } from '../../Reducers/userReducer';
 
 const UserOptions = ({user}) => {
     const dispatch = useDispatch();
+   
     const history = useNavigate();
     const { isAuthenticated } = useSelector((state) => state.user);
     const options = [        
@@ -23,6 +24,7 @@ const UserOptions = ({user}) => {
         e.preventDefault();
         if (value === "logout") {
             dispatch(userLogout());
+            window.location.href = '/login';
             // history("/login");
         }else{
             history(value);

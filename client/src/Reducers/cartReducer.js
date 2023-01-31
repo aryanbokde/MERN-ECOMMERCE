@@ -145,6 +145,7 @@ const cartReducer = createSlice({
     saveShippingInfo(state,action){
       // console.log(action.payload);
       state.shippingInfo = action.payload
+      localStorage.setItem("shippingInfo", JSON.stringify(state.shippingInfo));
     },
   },
 });
