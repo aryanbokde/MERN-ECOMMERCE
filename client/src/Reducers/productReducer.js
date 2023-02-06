@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {toast} from 'react-toastify';
+import { fetch2, fetch1 } from './../Helpers/helper';
 
 const initialState = {
     loading:false,
@@ -10,16 +11,6 @@ const initialState = {
     resultPerPage:null,
     filteredProductCount:null,
 }
-
-const fetch2 = async(url, type) => {   //1
-    const res = await fetch(url, {
-        method:type,
-        headers:{
-            "Content-Type" : "application/json"
-        },
-    })
-    return await res.json();
-};
 
 //Fetch All Products 
 export const fetchAllProduct = createAsyncThunk(
@@ -40,7 +31,6 @@ export const fetchAllProduct = createAsyncThunk(
     }
 );
 
-
 //Fetch Product Detail
 export const productDetail = createAsyncThunk(
     'productdetail',
@@ -50,6 +40,20 @@ export const productDetail = createAsyncThunk(
     }
 );
 
+//Create review or update review
+export const createReview = createAsyncThunk(
+    'createreview',
+    async (body, { rejectWithValue }) => {        
+        const link = `/api/v1/review`; 
+        
+        try {
+            const result = await fetch1(link, "put", body); 
+            return result
+        } catch (err) {
+            return rejectWithValue(err.response.data)
+        }
+    }
+);
 
 
 const productReducer = createSlice({
@@ -76,6 +80,7 @@ const productReducer = createSlice({
         builder.addCase(fetchAllProduct.rejected, (state, action) => {
             console.log(action.error.message);
         })    
+
         // ========== Get Product detail ============= //
         builder.addCase(productDetail.pending, (state) => {
             state.loading = true
@@ -91,6 +96,25 @@ const productReducer = createSlice({
         builder.addCase(productDetail.rejected, (state, action) => {
             console.log(action.error.message);
         })    
+
+        // ========== Get Product detail ============= //
+        builder.addCase(createReview.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(createReview.fulfilled, (state, {payload:{success, message}}) => {
+            state.loading = false
+            if (success) {
+                toast.success("Product review successfully created");
+            }else{
+                toast.error(message);
+            }
+        })    
+        builder.addCase(createReview.rejected, (state, action) => {
+            state.loading = false
+            toast.error(action.payload);
+        })    
+
+        
            
     }
 });

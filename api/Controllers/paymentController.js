@@ -59,7 +59,7 @@ exports.processToPayment = catchAsyncErrors(async (req, res, next) =>{
         // billing_address_collection: "",
         mode:'payment',
         // shipping_address_collection: {allowed_countries: ['IN']},
-        // custom_text: {
+        // custom_text: { 
         // shipping_address: {
         //     message: 'Please note that we can\'t guarantee 2-day delivery for PO boxes at this time.',
         // },

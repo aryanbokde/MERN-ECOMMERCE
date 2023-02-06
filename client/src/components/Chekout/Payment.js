@@ -42,9 +42,6 @@ const Payment = () => {
   }, [stripeApiKeyfun]);
 
 
-
-
-
   return (
 
     <div className='bg-p'>

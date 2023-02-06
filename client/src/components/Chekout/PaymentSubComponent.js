@@ -29,7 +29,6 @@ const CheckoutForm = () => {
   const dispatch = useDispatch();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
-  const { orders } = useSelector((state) => state.order);
   const paymentData = {
     amount:Math.round(orderInfo.totalPrice)
   }
@@ -88,7 +87,7 @@ const CheckoutForm = () => {
             status: result.paymentIntent.status,
           }
           dispatch(createNewOrder(order));
-          // window.location.href = '';
+          window.location.href = '/order-success';
           // console.log(result.paymentIntent.status);
         } else {
           toast.error("There's some issue while processing payment");
@@ -101,7 +100,7 @@ const CheckoutForm = () => {
     }
     
   };
-  console.log(orders);
+
   return (
     <form onSubmit={handleSubmit} className='paymentForm'>
       <>

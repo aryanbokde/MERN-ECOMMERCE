@@ -27,6 +27,8 @@ import Shipping from './components/Chekout/Shipping';
 import ConfirmOrder from './components/Chekout/ConfirmOrder';
 import Payment from './components/Chekout/Payment';
 import OrderSuccess from "./components/Chekout/OrderSuccess";
+import MyOrders from "./components/Order/MyOrders";
+import OrderDetail from "./components/Order/OrderDetail";
 
 
 function App() {
@@ -70,6 +72,8 @@ function App() {
                   <Route exact path="/shipping" element={<Shipping />} />
                   <Route exact path="/order/confirm" element={<ConfirmOrder />} />
                   <Route exact path="/process/payment" element={<Payment/>} />
+                  <Route exact path="/orders" element={<MyOrders/>} />
+                  <Route exact path="/order/:id" element={<OrderDetail/>} />
                 </Route>              
               }
               

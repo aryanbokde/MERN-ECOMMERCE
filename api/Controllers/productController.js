@@ -33,7 +33,6 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   res.status(200).json({ success: true, products, productCount, resultPerPage, filteredProductCount });
 });
 
-
 //Update Product by Admin ----Admin
 exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
@@ -69,6 +68,7 @@ exports.getProductDetail = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({ success: true, product });
 });
+
 
 //Create New Review or Update the review.
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {

@@ -147,6 +147,14 @@ const cartReducer = createSlice({
       state.shippingInfo = action.payload
       localStorage.setItem("shippingInfo", JSON.stringify(state.shippingInfo));
     },
+    emptyCartShipping(state,action){
+      state.cartItems = [] 
+      state.shippingInfo = {}
+      state.cartTotalAmount = 0 
+      state.cartTotalQuantity = 0
+      localStorage.setItem("shippingInfo", JSON.stringify(state.shippingInfo));
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 export const { addToCart, removeFromCart, decreaseCart, increaseCart, clearCart, getTotals, saveShippingInfo } =

@@ -50,7 +50,7 @@ const Profile = () => {
                                 <p>{String(user.createdAt).substring(0, 10)}</p>
                             </div>
                             <div className='userDetail'>
-                                <p><Link to="/me/update" className='btn btn-primary'>My Orders</Link></p>
+                                <p><Link to="/orders" className='btn btn-primary'>My Orders</Link></p>
                                 <p><Link to="/password/update" className='btn btn-primary'>Change Password</Link></p>
                             </div>
                         </div>

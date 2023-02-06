@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactStars from "react-rating-stars-component";
+import Rating from '@mui/material/Rating';
 import profilePng from '../../images/Profile.png';
 
 const ReviewCard = ({review}) => {
+
     const options = {
-        edit: false,
-        color: "rgba(20,20,20,0.1)",
-        activeColor: "#ffd700",
-        size: window.innerWidth < 600 ? 10 : 20,
+        readOnly: true,        
+        size:"medium",
         value: review.rating,
-        isHalf: true,
+        precision: 0.5,
     };
+
   return (
     <div className='col-md-4 review-counter'>
         <div className="card w-100">
@@ -18,11 +18,9 @@ const ReviewCard = ({review}) => {
             <div className="card-body">
                 <h5 className="card-title">{review.name}</h5>
                     <div className='review-body'>
-                        <ReactStars {...options} />
-                        <span>{review.comment}</span>
+                        <Rating {...options} />
+                        <p>{review.comment}</p>
                     </div>
-                    
-                <p className="card-text">{review.comment}</p>
             </div>
         </div>
     </div>
