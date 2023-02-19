@@ -1,0 +1,8 @@
+.productListTable{
+	background-color:#fff;
+}
+
+.productListTable .MuiDataGrid-columnHeader:focus, .productListTable .MuiDataGrid-cell:focus{
+	outline: none !important;
+}
+

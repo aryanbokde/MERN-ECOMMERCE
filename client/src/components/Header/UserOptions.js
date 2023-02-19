@@ -17,7 +17,7 @@ const UserOptions = ({user}) => {
     ];
 
     if (user.role === "admin") {
-        options.unshift({ url: "dashboard", name: "Dashboard"});
+        options.unshift({ url: "/admin/dashboard", name: "Dashboard"});
     }
 
     const handleClick = async(e, value) => {

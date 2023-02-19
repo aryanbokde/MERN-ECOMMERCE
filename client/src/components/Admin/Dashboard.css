@@ -1,0 +1,60 @@
+.bg-p {
+    padding: 50px 15px;
+    width: 100%;
+}
+.dashBoard .Total{
+    padding: 15px;
+    background-color: aqua;
+}
+.orderSummary{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+.orderSummary a{
+    color:black;
+    padding: 1.5rem;
+    text-align: center;
+    background-color: antiquewhite;
+    text-decoration: none;
+    margin: 0 15px;
+    height: 200px;
+    width: 200px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px #b9b9b9;
+}
+.orderSummary a:first-child{
+    background-color: tomato;
+}
+.orderSummary a:last-child{
+    background-color: #333;
+    color: #fff;
+}
+.orderSummary a p{
+    font-size:22px;
+    margin-bottom: 0px;
+    font-weight: 500;
+}
+.doughnutChart{
+    width: 50%;
+    margin:auto;
+}
+.adminSidebar{
+    width: 280px;
+}
+
+@media screen and (max-width:600px){
+    .mainDashboard{
+        display: block !important;
+    }
+    .adminSidebar{
+        width: 100%;
+    }
+
+    
+}

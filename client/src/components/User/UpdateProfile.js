@@ -14,6 +14,7 @@ const UpdateProfile = () => {
   const history = useNavigate();
   const { user } = useSelector((state) => state.user);
   const { isUpdated, loading } = useSelector((state) => state.profile);
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [avatar, setAvatar] = useState('');

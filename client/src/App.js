@@ -17,6 +17,7 @@ import { getTotals } from "./Reducers/cartReducer";
 import { useSelector } from "react-redux";
 import Profile from "./components/User/Profile";
 import ProtectedRoutes from "./components/Route/ProtectedRoutes";
+// import AdminProtectedRoute from "./components/Route/AdminProtectedRoute";
 import UpdateProfile from "./components/User/UpdateProfile";
 import ChangePassword from "./components/User/ChangePassword";
 import ForgetPassword from "./components/User/ForgetPassword";
@@ -29,21 +30,25 @@ import Payment from './components/Chekout/Payment';
 import OrderSuccess from "./components/Chekout/OrderSuccess";
 import MyOrders from "./components/Order/MyOrders";
 import OrderDetail from "./components/Order/OrderDetail";
+import Dashboard from './components/Admin/Dashboard';
+import ProductList from './components/Admin/ProductList';
+import NewProduct from './components/Admin/NewProduct';
+import EditProduct from './components/Admin/EditProduct';
 
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
+  
   async function getStripeApiKey() {
     store.dispatch(loadUser());
-    store.dispatch(getTotals());
+    store.dispatch(getTotals());   
+    
   }
 
   useEffect(() => {
-    getStripeApiKey();    
+    getStripeApiKey();       
     // eslint-disable-next-line
   }, []);
-  
   
   return (
     <>
@@ -76,9 +81,18 @@ function App() {
                   <Route exact path="/order/:id" element={<OrderDetail/>} />
                 </Route>              
               }
+              { user.role === 'admin' && 
+                <Route element={<ProtectedRoutes />}>
+                  <Route exact path="/admin/dashboard" element={<Dashboard />} />
+                  <Route exact path="/admin/products" element={<ProductList />} />
+                  <Route exact path="/admin/product" element={<NewProduct />} />
+                  <Route exact path="/admin/product/:id" element={<EditProduct />} />
+                </Route>
+              }
+              
               
 
-              {/* <Route path="*" element={<NotFound />} /> */}
+            
             </Routes>
             <Footer/>
         </Fragment>

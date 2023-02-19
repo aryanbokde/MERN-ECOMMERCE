@@ -44,7 +44,13 @@ a, a:hover{
 .btn-edit a{
   color: rgb(26, 28, 39);
 }
-
+.btnIcon {
+  color: #d40000;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-left: 10px;
+}
 button.page-link.disabled {
   cursor: default;
 }

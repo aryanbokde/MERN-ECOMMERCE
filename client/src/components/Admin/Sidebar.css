@@ -1,0 +1,30 @@
+.adminSidebar{
+    background-color: #000;
+}
+
+.adminSidebar .btn {
+    background-color:#000;
+    padding: 5px 10px;
+    border-radius: 0 !important;
+    width: 100%;
+    outline: none !important;
+    margin-bottom: 5px;
+}
+.adminSidebar .btn span{
+    margin-left:5px;
+}
+.adminSidebar .btn-check:focus+.btn, .adminSidebar .btn:focus{
+    box-shadow: none !important;
+}
+.adminSidebar ul .link-light{
+    padding: 5px 35px;
+    background-color: rgb(26, 28, 39);
+    border-radius: 0 !important;
+    width: 100%;
+}
+.adminSidebar ul li{
+    margin-bottom: 5px;
+}
+/* .adminSidebar ul .link-light:hover, .adminSidebar ul .link-light:hover{
+    background-color: #000;
+} */

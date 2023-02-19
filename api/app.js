@@ -10,12 +10,13 @@ const dotenv = require("dotenv");
 //Config 
 dotenv.config({path:"config/config.env"});
 
-
 app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
+app.use(express.json({limit: 52428800}));
+app.use( bodyParser.json( {parameterLimit: 50000, limit:52428800, type:'application/json'} ) ); 
+// app.use(express.json({limit: 1024102420}));
+// app.use( bodyParser.json( {parameterLimit: 50000, limit:1024102420, type:'application/json'} ) ); 
+app.use(bodyParser.urlencoded({ parameterLimit: 50000, limit: 1024102420, extended: true }));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended:true}));
 app.use(fileUpload());
 
 

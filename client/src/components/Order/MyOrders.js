@@ -26,7 +26,7 @@ const MyOrders = () => {
             status:item.orderStatus,
             amount: item.totalPrice,
         });
-      });
+    });
   
     const columns = [
         { field: 'id', headerName: 'Order ID', minWidth:300, flex: 1 },

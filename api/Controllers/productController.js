@@ -2,17 +2,44 @@ const Product = require("../Modules/productModule");
 const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apifeatures");
+const cloudinary = require("cloudinary");
 
 //Create Product by Admin ----Admin
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
+  
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  }else{
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i],{
+      folder: "products",
+  });
+
+    imagesLinks.push({
+      public_id : result.public_id,
+      url: result.secure_url,
+    });
+    
+  }
+
+  req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
   const product = await Product.create(req.body);
+
   res.status(201).json({ success: true, product });
+
 });
 
 
-//Get all Product by Admin ----Admin
+//Get all Product by User
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
   const resultPerPage = 4;
@@ -31,6 +58,14 @@ exports.getAllProducts = catchAsyncErrors(async (req, res) => {
     products = await apiFeature.query.clone();
   
   res.status(200).json({ success: true, products, productCount, resultPerPage, filteredProductCount });
+});
+
+//Get all Product by Admin ----Admin
+exports.getAdminProducts = catchAsyncErrors(async (req, res) => {
+
+  const products = await Product.find();  
+  res.status(200).json({ success: true, products });
+
 });
 
 //Update Product by Admin ----Admin
@@ -53,11 +88,18 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   if (!product) {
     return next(new ErrorHander("Product not found", 404));
   }
+
+  //Deleting product images from cloudinary
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_id);    
+  }
+
   product = await Product.findByIdAndDelete(req.params.id);
   res
     .status(200)
     .json({ success: true, message: "Product deleted successfully..!" });
 });
+
 
 //Get Single Product Details
 exports.getProductDetail = catchAsyncErrors(async (req, res, next) => {
